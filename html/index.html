@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>map1</title>
+<title>map1 - 접근성 시각화 지도</title>
 <!-- prevent IE6 flickering -->
 <script type="text/javascript">
 try {document.execCommand('BackgroundImageCache', false, true);} catch(e) {}
@@ -17,11 +17,13 @@ try {document.execCommand('BackgroundImageCache', false, true);} catch(e) {}
 </head>
 <body>
 <div id="menu" style="margin:20px; position:absolute; top:0; left:0; width:200px; border:1px solid #000; ">
+	<h3>접근성 시각화 지도</h3>
 	<ul style="list-style-type: none; padding-left: 10px">
-		<li>관심 위치 지정
-					<input type="button" value="Click" onclick="setPOIMode();" />
+		<li>1) 관심 위치 지정
+					<input type="button" value="지정" onclick="setPOIMode();" />
 		</li>
-		<li>자동 체크
+		<li>2-1) 지도 직접 클릭</li>
+		<li>2-2) 자동 체크 (9x9)<br/>
 			<input type="button" id="startCheck" value="Start" onclick="startCheck();"; />
 			<input type="button" style="display:none" id="stopCheck" value="Stop" onclick="stopCheck();"; />
 			<input type="button" id="resetCheck" value="Reset" onclick="resetCheck();"; />
@@ -33,7 +35,7 @@ try {document.execCommand('BackgroundImageCache', false, true);} catch(e) {}
 			<li><input type="radio" name="by" value="bicycle" /> 자전거</li>
 		</ul>
 		</li>
-		<li>지도
+		<li>위치 찾기
 			<ul style="list-style-type: none; padding-left: 20px">
 				<li>
 					<input type="button" value="현재 위치 사용" onclick="setMyPositionToPOI();" />
@@ -50,6 +52,10 @@ try {document.execCommand('BackgroundImageCache', false, true);} catch(e) {}
 			<a href="http://github.com/oedalpha/map1">정보</a>
 		</li>
 	</ul>
+	자동 체크 예)
+	<a href="map1_thumbnail.jpg">
+		<img src="map1_thumbnail.jpg" width="100px" height="100px" />
+	</a>
 
 
 </div>
