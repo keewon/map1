@@ -100,17 +100,21 @@ function displayDistance(slat, slng, elat, elng, t, by) {
 	}
 	else {
 		var color = '#000000';
+		var bgcolor = '#ffffff';
 		if ( by == 'car' && min <= 20 || min <= 30 ) {
-			color = '#00ff00';
+			bgcolor = '#00ff00';
+			color = '#000000';
 		}
 		else if ( by == 'car' && min <= 40 || min <= 60 ) {
-			color = '#ffff00';
+			color = '#000000';
+			bgcolor = '#ffff00';
 		}
 		else  {
-			color = '#ff0000';
+			color = '#ffffff';
+			bgcolor = '#ff0000';
 		}
 		url = makeURL(slat, slng, elat, elng, by);
-		label = "<span style='background-color:#000000'><a style='color:" + color + ";' href='" + url + "'>" + min + "</a></span>"
+		label = "<span style='background-color:" + bgcolor +"'><a style='color:" + color + ";' href='" + url + "'>" + min + "</a></span>"
 	}
 
 	var oInfo = new nhn.api.map.InfoWindow({

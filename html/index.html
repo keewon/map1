@@ -123,8 +123,11 @@ function resetCheck() {
 	setMarker(poiX, poiY);
 }
 
-function onClickSearchResult(x, y) {
+function onClickSearchResult(x, y, setpoi) {
 	setCenter(x, y);
+	if (setpoi) {
+		setPOI(x, y);
+	}
 }
 
 function search() {
@@ -138,17 +141,25 @@ function search() {
 					var i;
 					for (i=0; i<addressList.length; ++i) {
 						var result = addressList[i];
-						$ul.append("<li><a href=\"javascript:onClickSearchResult(" + 
+						$ul.append("<li>" + result.name + " " +
+							"<a href=\"javascript:onClickSearchResult(" + 
 							result.x + ',' + result.y +
-							')\">' +
-						result.name + '</a></li>');
+							', false)">이동</a> ' + 
+							"<a href=\"javascript:onClickSearchResult(" + 
+							result.x + ',' + result.y +
+							', true)">관심</a></li>');
 					}
 					for (i=0; i<siteList.length; ++i) {
 						var result = siteList[i];
-						$ul.append("<li><a href=\"javascript:onClickSearchResult(" + 
-							result.x + ',' + result.y +
-							')\">' +
-						result.name + '(' + result.address + ')' + '</a></li>');
+						$ul.append("<li>" + result.name +
+								'(' + result.address + ') ' +
+								"<a href=\"javascript:onClickSearchResult(" + 
+								result.x + ',' + result.y +
+								', false)\">이동</a> ' +
+								"<a href=\"javascript:onClickSearchResult(" + 
+								result.x + ',' + result.y +
+								', true)\">관심</a>' +
+								'</li>');
 					}
 				});
 	}

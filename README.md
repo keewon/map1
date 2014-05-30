@@ -6,16 +6,15 @@ map1
 
 ## 개발 동기
 어디로 이사 갈 지 고민 돼서 대중교통 접근성 시각화 Mash-up 개발.
+
 부동산 가격도 연동하고 싶네요.
 
 돈 많으면 고민 없이 그냥 판교 살면 되는데... 안타깝습니다.
 
 ## 개발
-GitHub 로 Issues, Pull Request 받습니다.
+제안 사항 있으신 분은 https://github.com/oedalpha/map1/issues
 
-특히 UI, 그래픽 디자인 관련 Issues 나 Pull Request 받습니다.
-
-당연히 Fork 하셔도 됩니다.
+Pull Request 받습니다.
 
 ## Note
 이 웹앱은 NAVER 지도 API 를 사용합니다.
