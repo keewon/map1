@@ -82,7 +82,7 @@ function makeURL(slat, slng, elat, elng, by) {
 	var by_code = 0;
 	if (by == 'bmw') by_code = 1;
 	else if (by == 'bicycle') by_code = 2;
-	return "http://map.naver.com/?menu=route&mapMode=1&lat=" +
+	return "http://map.naver.com/?mobile&menu=route&mapMode=1&lat=" +
 		slat + "&lng=" + slng + "&slng=" + slng + "&slat=" + slat + "&elng=" +
 		elng + "&elat=" + elat + "&pathType=" + by_code ;
 }
