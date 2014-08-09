@@ -1,7 +1,7 @@
 map1
 ====
 
-접근성 시각화 지도
+교통 접근성 시각화 지도
 
 
 ## 개발 동기
@@ -12,7 +12,7 @@ map1
 돈 많으면 고민 없이 그냥 판교 살면 되는데... 안타깝습니다.
 
 ## 개발
-제안 사항 있으신 분은 https://github.com/oedalpha/map1/issues
+제안 사항 있으신 분은 https://github.com/keewon/map1/issues
 
 Pull Request 받습니다.
 
@@ -22,5 +22,5 @@ Pull Request 받습니다.
 문제가 될 경우 서비스를 내릴 수 있습니다.
 
 이 서비스는 문득 든 생각을 구현해보기 위해 만들었으며,
-NAVER 또는 다른 지도 서비스 제공 업체에서
+NAVER, Daum, SK Planet 등 다른 지도 서비스 제공 업체에서
 유사한 기능을 제공하게 되면 서비스를 내릴 예정입니다.
