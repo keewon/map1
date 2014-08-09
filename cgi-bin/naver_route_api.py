@@ -31,4 +31,5 @@ elif method == 'car' or method == 'bicycle':
         "start=" + startX + "%2C" + startY + "%2Cstart&destination=" +
         endX + "%2C" + endY + "%2Cdest");
     
-print urllib2.urlopen(url).read()
+req = urllib2.Request(url, headers={ 'User-Agent': 'Mozilla/5.0' })
+print urllib2.urlopen(req).read()

@@ -26,7 +26,8 @@ if len(q) > 0:
     #    "65ca837920a36c96a9ec6636d0f76a87" +
     #    "&target=local&query=" + urllib.quote_plus(q))
     
-    data = urllib2.urlopen(url).read()
+    req = urllib2.Request(url, headers={ 'User-Agent': 'Mozilla/5.0' })
+    data = urllib2.urlopen(req).read()
     print data
     #print parse_xml(data)
 
