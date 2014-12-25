@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>map1 - 좌표 디버깅</title>
+<!-- prevent IE6 flickering -->
+<script type="text/javascript">
+try {document.execCommand('BackgroundImageCache', false, true);} catch(e) {}
+</script>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=a17035f1be1947626b27325e9def210e"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="main.js" ></script>
+<!--link href="main.css" rel="stylesheet" type="text/css"></link-->
+</head>
+<body>
+<div id="testMap" style="border:1px solid #000; width:500px; height:400px; position: absolute; top:0; left:220px; margin:20px;"></div>
+<script type="text/javascript">
+
+var poiY = 37.3993781;
+var poiX = 127.1086714;
+var setPOIFlag = false;
+
+var oMap;
+
+function getBy() {
+	return $(':radio[name="by"]:checked').val();
+}
+
+function setPOIMode() {
+	setPOIFlag = true;
+}
+
+function setPOI(x, y) {
+	poiX = x;
+	poiY = y;
+	setMarker(poiX, poiY);
+}
+
+function setCenter(x, y) {
+	var oPoint = new nhn.api.map.LatLng(y, x);
+	oMap.setCenter(oPoint);
+}
+
+function onClick(pos) {
+	var x = pos.point.getX();
+	var y = pos.point.getY();
+
+	console.log("" + x + "," + y);
+}
+
+function setMyPositionToPOI() {
+	window.navigator.geolocation.getCurrentPosition(
+			function(data) {
+				setCenter(data.coords.longitude, data.coords.latitude);
+			},
+			function(error) {
+			});
+}
+
+function startCheck() {
+	if (appleFlag == false) {
+		appleFlag = true;
+		$('#startCheck').hide();
+		$('#stopCheck').show();
+		appleCheck(poiX, poiY, 0, 1, getBy(), 'right');
+	}
+}
+
+function stopCheck() {
+	appleFlag = false;
+	$('#startCheck').show();
+	$('#stopCheck').hide();
+}
+
+function resetCheck() {
+	oMap.clearOverlay();
+	setMarker(poiX, poiY);
+}
+
+function onClickSearchResult(x, y, setpoi) {
+	setCenter(x, y);
+	if (setpoi) {
+		setPOI(x, y);
+	}
+}
+
+function search() {
+	var text = $('#searchText').val();
+	if (text.length > 0) {
+		naverSearch(text,
+				function(addressList, siteList) {
+					var $ul = $('#searchResult');
+					$ul.html('');
+
+					var i;
+					for (i=0; i<addressList.length; ++i) {
+						var result = addressList[i];
+						$ul.append("<li>" + result.name + " " +
+							"<a href=\"javascript:onClickSearchResult(" + 
+							result.x + ',' + result.y +
+							', false)">이동</a> ' + 
+							"<a href=\"javascript:onClickSearchResult(" + 
+							result.x + ',' + result.y +
+							', true)">관심</a></li>');
+					}
+					for (i=0; i<siteList.length; ++i) {
+						var result = siteList[i];
+						$ul.append("<li>" + result.name +
+								'(' + result.address + ') ' +
+								"<a href=\"javascript:onClickSearchResult(" + 
+								result.x + ',' + result.y +
+								', false)\">이동</a> ' +
+								"<a href=\"javascript:onClickSearchResult(" + 
+								result.x + ',' + result.y +
+								', true)\">관심</a>' +
+								'</li>');
+					}
+				});
+	}
+}
+
+var mapWidth = 400;
+var mapHeight = 400;
+
+function calcMapSize() {
+	var w = $(window).width() - 60 - 200;
+	var h = $(window).height() - 40;
+
+	if (w < 400) w = 400;
+	if (h < 400) h = 400;
+
+	mapWidth = w;
+	mapHeight = h;
+}
+
+{
+	calcMapSize();
+	nhn.api.map.setDefaultPoint('LatLng');
+
+	var oPoint = new nhn.api.map.LatLng(poiY, poiX);
+	oMap = new nhn.api.map.Map('testMap', {
+		point : oPoint,
+		zoom : 8,
+		enableWheelZoom : false,
+		enableDragPan : true,
+		enableDblClickZoom : false,
+		mapMode : 0,
+		activateTrafficMap : false,
+		activateBicycleMap : false,
+		minMaxLevel : [ 1, 14 ],
+		size : new nhn.api.map.Size(mapWidth, mapHeight)
+	});
+
+	var oSlider = new nhn.api.map.ZoomControl();
+	oMap.addControl(oSlider);
+	oSlider.setPosition({ top:15, left:15 });
+
+	oMap.attach("click", onClick);
+	setMarker(poiX, poiY);
+
+	$('#searchText').keyup(function (e) {
+			if (e.keyCode == 13) {
+				search();
+			}
+		});
+}
+
+$(window).resize(function() {
+		calcMapSize();
+		console.log(mapWidth);
+		console.log(mapHeight);
+		console.log(oMap.getSize());
+		oMap.setSize(
+			new nhn.api.map.Size(mapWidth, mapHeight)
+			);
+		console.log(oMap.getSize());
+
+		});
+
+</script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+ })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-51496088-1', '52.pe.kr');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
